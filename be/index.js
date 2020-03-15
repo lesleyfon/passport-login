@@ -1,11 +1,20 @@
 require("dotenv").config();
 const express = require("express");
 const passport = require("passport");
+const FacebookStrategy = require("passport-facebook").Strategy;
 const cors = require("cors");
 
 let user = {};
 
-const FacebookStrategy = require("passport-facebook").Strategy;
+
+
+passport.serializeUser((user, cb) => {
+  cb(null, user);
+});
+
+passport.deserializeUser((user, cb) => {
+  cb(null, user);
+});
 passport.use(
   new FacebookStrategy(
     {
@@ -24,12 +33,12 @@ passport.use(
 );
 const app = express();
 app.use(cors());
-
-const port = 3000;
+app.use(passport.initialize());
+const port = 5000;
 
 app.get("/auth/facebook", passport.authenticate("facebook"));
 
-app.get( "/auth/facebook/callback", passport.authenticate("facebook", { successRedirect: "/profile", failureRedirect: "/login" }));
+app.get( "/auth/facebook/callback", passport.authenticate("facebook", { successRedirect: "http://localhost:3000/profile", failureRedirect: "/login" }));
 
 app.get("/profile", function(req, res){
 
