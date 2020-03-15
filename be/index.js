@@ -3,6 +3,7 @@ const express = require("express");
 const passport = require("passport");
 const FacebookStrategy = require("passport-facebook").Strategy;
 const cors = require("cors");
+const helmet = require('helmet')
 
 let user = {};
 
@@ -33,8 +34,9 @@ passport.use(
 );
 const app = express();
 app.use(cors());
+app.use(helmet())
 app.use(passport.initialize());
-const port = 5000;
+const port = process.env.PORT || 5000;
 
 app.get("/auth/facebook", passport.authenticate("facebook"));
 
