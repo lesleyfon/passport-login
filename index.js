@@ -22,7 +22,7 @@ passport.use(
       clientID: process.env.FACEBOOK_APP_ID,
       clientSecret: process.env.FACEBOOK_APP_SECRET,
       //Endpoint to rediect to Once we have a successful login
-      callbackURL: "https://deploy-facebook.herokuapp.com/auth/facebook/callback"
+      callbackURL: "https://deploy-facebook.herokuapp.com/profile"
     },
     function(accessToken, refreshToken, profile, done) {
       user = {
@@ -41,7 +41,7 @@ const port = process.env.PORT || 5000;
 
 app.get("/auth/facebook", passport.authenticate("facebook"));
 
-app.get( "/auth/facebook/callback", passport.authenticate("facebook", { successRedirect: "/google.com", failureRedirect: "/login" }));
+app.get( "/auth/facebook/callback", passport.authenticate("facebook", { successRedirect: "https://deploy-facebook.herokuapp.com/profile", failureRedirect: "/login" }));
 
 app.get("/profile", function(req, res){
 
