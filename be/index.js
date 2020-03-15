@@ -36,6 +36,7 @@ const app = express();
 app.use(cors());
 app.use(helmet())
 app.use(passport.initialize());
+app.use(express())
 const port = process.env.PORT || 5000;
 
 app.get("/auth/facebook", passport.authenticate("facebook"));
