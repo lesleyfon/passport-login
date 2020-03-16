@@ -41,7 +41,7 @@ const port = process.env.PORT || 5000;
 
 app.get("/auth/facebook", passport.authenticate("facebook"));
 
-app.get( "/auth/facebook/callback", passport.authenticate("facebook", { successRedirect: "https://fb123321.herokuapp.com/profilee", failureRedirect: "/login" }));
+app.get( "/auth/facebook/callback", passport.authenticate("facebook", { successRedirect: "/profile", failureRedirect: "/login" }));
 
 app.get("/profile", function(req, res){
 
